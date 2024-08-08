@@ -4,12 +4,10 @@ import logging
 import sys
 from configparser import ConfigParser
 
-# Setup logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Read configurations
 config = ConfigParser()
 config.read("config.ini")
 
@@ -58,6 +56,10 @@ def create_standard_subtasks(parent_issue_key):
             "issue_type_id": "5",
         },
         {
+            "summary": "Refactor | Optimization process",
+            "issue_type_id": "5",
+        },
+        {
             "summary": "Fixing | Creating unit tests",
             "issue_type_id": "5",
         },
@@ -89,7 +91,27 @@ def create_standard_subtasks(parent_issue_key):
         )
 
 
+def print_help_message():
+    help_message = """
+Usage:
+    script.py standard <parent_issue_key>                - Creates a standard subtask for the specified parent issue key.
+    script.py <project_key> <parent_issue_key> <summary> <description> <issue_type_id> - Creates a custom subtask with the provided details.
+
+Options:
+    --help  Show this message and exit.
+
+Examples:
+    script.py standard PROJ-123                          - Creates a standard subtask under the parent issue PROJ-123.
+    script.py PROJ PROJ-123 "Task summary" "Task description" 10001 - Creates a custom subtask under PROJ-123 with the specified summary, description, and issue type ID.
+    """
+    print(help_message)
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1].lower() == "--help":
+        print_help_message()
+        sys.exit(0)
+
     if len(sys.argv) > 1 and sys.argv[1].lower() == "standard":
         if len(sys.argv) >= 3:
             parent_issue_key = sys.argv[2]

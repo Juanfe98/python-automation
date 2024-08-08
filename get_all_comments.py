@@ -86,7 +86,7 @@ def display_comments(comments_json):
         print("\nComments:\n" + "=" * 80)
         for comment in comments_json["comments"]:
             author = comment["author"]["displayName"]
-            created = comment["created"][:10]  # Simplify the date to YYYY-MM-DD
+            created = comment["created"][:10]
             body = comment["body"].replace("\r", "").replace("\n", "\n\t")
             print(f"Author: {author}\nDate: {created}\nComment:\n\t{body}\n" + "-" * 80)
     else:
